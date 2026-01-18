@@ -1,0 +1,754 @@
+/*================================================================
+  VARIABLES Y RESET
+================================================================*/
+:root {
+    /* PALETA DE COLORES */
+    --color-primary: #152843;    /* Azul marino profundo */
+    --color-secondary: #F8F9FA;  /* Blanco suave */
+    --color-heading: #D95F24;    /* Naranja quemado */
+    --color-btn-primary: #e96523; /* Naranja/Bronce para botones */
+    --color-accent: #457B9D;     /* Azul brillante para hover */
+    --color-bg-wine: #7e4b7a;    
+    --color-purple: #955CC5; 
+    --color-green: #ecd8cc;      /* Fondo About */
+    --color-salmon: #F6E6E0;     /* Fondo Skills */
+    
+    /* TEXTO */
+    --color-text-primary: #212529;   
+    --color-text-secondary: #6C757D; 
+    --color-text-light: #FFFFFF;    
+    --color-text-hero: var(--color-text-light); 
+    
+    /* FONDOS */
+    --color-bg-light: var(--color-secondary);
+    --color-bg-dark: var(--color-primary);
+    
+    /* TIPOGRAFÍA */
+    --font-heading: 'Montserrat Alternates', sans-serif;
+    --font-body: 'Inter', sans-serif;
+
+    /* ESPACIADO */
+    --spacing-xl: 6rem;
+    --spacing-lg: 4rem;
+    --spacing-md: 2rem;
+    --spacing-sm: 1rem;
+}
+
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-light);
+    line-height: 1.6;
+    scroll-behavior: smooth;
+}
+
+/* UTILIDADES */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+}
+
+.section-title {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-sm);
+    text-align: center;
+    font-weight: 700;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: var(--color-primary);
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-lg);
+    opacity: 0.9;
+}
+
+section {
+    padding: var(--spacing-xl) 0;
+}
+
+a {
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--color-accent);
+}
+
+/*================================================================
+  BOTONES Y HIGHLIGHTS
+================================================================*/
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 2px solid transparent;
+}
+
+.btn-primary {
+    background-color: var(--color-btn-primary);
+    color: var(--color-text-light);
+    border-color: var(--color-btn-primary);
+}
+
+.btn-primary:hover {
+    background-color: transparent;
+    transform: translateY(-2px);
+    color: var(--color-text-light);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    border: 2px solid var(--color-heading);
+    color: var(--color-text-light);
+}
+
+.btn-secondary:hover {
+    background-color: var(--color-btn-primary);
+    transform: translateY(-2px);
+    color: var(--color-primary);
+}
+
+.highlight {
+    font-weight: 600;
+    color: var(--color-heading);
+}
+
+.highlight-rotating {
+    display: inline-block;
+    position: relative;
+    opacity: 1;
+    transition: opacity 0.2s ease-in-out; 
+    color: var(--color-btn-primary);
+}
+
+.highlight-rotating.fade-out {
+    opacity: 0;
+}
+
+.highlight-2 {
+    font-weight: 600;
+    color: var(--color-btn-primary);
+}
+
+/*================================================================
+  HEADER
+================================================================*/
+.header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem 2rem;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: transparent;
+}
+
+.logo {
+    font-family: var(--font-heading);
+    font-weight: 900;
+    color: var(--color-text-light);
+    font-size: 1.5rem;
+}
+
+.nav {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.nav-link {
+    color: var(--color-text-light);
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background-color: var(--color-accent);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: calc(100% - 2rem);
+}
+
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 30px;
+}
+
+.nav-toggle .bar {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: var(--color-text-light);
+    border-radius: 1px;
+    transition: all 0.3s ease;
+}
+
+/* MENÚ MÓVIL */
+@media (max-width: 768px) {
+    .header {
+        padding: 1rem;
+        position: fixed;
+        background-color: var(--color-primary);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+    
+    .nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--color-primary);
+        flex-direction: column;
+        display: none; 
+        padding: var(--spacing-sm) 0;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .nav.is-open {
+        display: flex;
+    }
+
+    .nav-link {
+        width: 100%;
+        text-align: center;
+        padding: 0.75rem var(--spacing-md);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .nav-toggle {
+        display: flex;
+    }
+    
+    .hero {
+        min-height: 50vh;
+        background: var(--color-primary); /* Fondo sólido en móvil */
+    }
+    
+    .hero-content {
+        margin-left: 0;
+        padding-right: 0;
+        text-align: center;
+        max-width: 100%;
+    }
+    
+    .hero-content-container {
+        justify-content: center;
+    }
+    
+    .about-layout {
+        grid-template-columns: 1fr;
+    }
+    
+    .alebrije-card {
+        flex-direction: column;
+        width: 95%;
+    }
+    
+    .card-left-col {
+        border-right: none;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+    
+    .slide {
+        padding: 2rem 1rem;
+    }
+    
+    .slider-nav-btn {
+        opacity: 0.8;
+        width: 35px;
+        height: 35px;
+    }
+    .prev-btn { left: 5px; }
+    .next-btn { right: 5px; }
+}
+
+main { padding-top: 0; }
+
+/*================================================================
+  SECCIÓN HERO
+================================================================*/
+.hero {
+    color: var(--color-text-hero);
+    min-height: 100vh;
+    margin: 0;
+    background: linear-gradient(
+        to right,
+        var(--color-primary) 70%,
+        var(--color-heading) 30%
+    );
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero.container { display: flex; max-width: 1200px; }
+.hero-content-container { width: 100%; display: flex; justify-content: flex-start; }
+
+.hero-content {
+    color: var(--color-text-light);
+    padding-left: 0.5rem; 
+    padding-right: 10rem;
+    max-width: 85%; 
+    animation: fadeIn 1s ease forwards;
+    position: relative;
+    margin-left: 0.5rem; 
+}
+
+.hero-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1.2;
+    color: var(--color-text-light);
+}
+
+.hero-actions a { margin-right: var(--spacing-sm); }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/*================================================================
+  SECCIÓN SOBRE MÍ
+================================================================*/
+.about-section {
+    position: relative;
+    background-color: var(--color-green);
+    padding: var(--spacing-xl) 0;
+    padding-top: calc(var(--spacing-xl) + 50px);
+    padding-bottom: calc(var(--spacing-xl) + 100px);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    z-index: 1;
+}
+
+.about-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 7vw; 
+    background: linear-gradient(
+        to right,
+        var(--color-primary) 70%,
+        var(--color-heading) 30%
+    );
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% calc(100% - 5vw));
+}
+
+.about-section::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background-color: var(--color-primary);
+    clip-path: polygon(0% 100%, 100% 0%, 100% 100%, 0% 100%);
+    z-index: -1;
+}
+
+.about-layout {
+    display: grid;
+    grid-template-columns: 1fr 2fr; 
+    gap: var(--spacing-lg);
+    align-items: flex-start;
+    position: relative;
+    z-index: 2;
+}
+
+.about-left { text-align: center; padding-top: var(--spacing-md); }
+.about-left .section-title { text-align: left; }
+
+.profile-photo {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: var(--spacing-md);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+}
+
+.about-headline {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    color: var(--color-heading);
+    margin-bottom: var(--spacing-md);
+}
+
+.about-text { margin-bottom: var(--spacing-md); font-size: 1.25rem; color: var(--color-primary); }
+
+.contact-cta {
+    display: inline-block;
+    font-weight: 700;
+    margin-top: var(--spacing-sm);
+    color: var(--color-heading);
+    transition: all 0.2s ease-in-out;
+}
+
+.contact-cta:hover { transform: scale(1.05); }
+
+/*================================================================
+  SECCIÓN SKILLS
+================================================================*/
+.skills-section { background-color: var(--color-salmon); }
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-md);
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.skill-category {
+    background-color: var(--color-bg-light);
+    padding: var(--spacing-md);
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s;
+}
+
+.skill-category:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); }
+.skill-category h3 { font-family: var(--font-heading); color: var(--color-accent); margin-bottom: var(--spacing-sm); }
+
+
+/*================================================================
+  AJUSTES SECCIÓN PROYECTOS
+================================================================*/
+
+/* Fondo azul marino para la sección de proyectos */
+#proyectos.projects-section {
+    background-color: var(--color-primary);
+    text-align: center; /* Asegura el centrado general */
+}
+
+/* Forzar color naranja en el título y subtítulo de esta sección */
+#proyectos .section-title,
+#proyectos .section-subtitle {
+    color: var(--color-secondary) !important;
+}
+
+/* Ajuste del margen inferior del subtítulo para separarlo de las tarjetas */
+#proyectos .section-subtitle {
+    margin-bottom: var(--spacing-lg) !important;
+}
+/*================================================================
+  TARJETAS DE PROYECTOS (ESTRUCTURA COMPARTIDA)
+================================================================*/
+
+/* 1. Estructura Base (Para AMBAS tarjetas) */
+.featured-card {
+    border-radius: 24px;
+    width: 90%;
+    max-width: 1400px;
+    margin: 0 auto 4rem auto;
+    min-height: 600px;
+    display: flex;       /* ¡Esta es la clave para las 2 columnas! */
+    overflow: hidden;
+    position: relative;
+}
+
+/* 2. Estilos Específicos: ALEBRIJE MAX */
+.alebrije-card {
+    background-color: #F8F1E7;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+
+/* 3. Estilos Específicos: ECOSTASIS */
+.ecostasis-card {
+    background-color: #F1F8E9; /* Fondo Verde Pálido */
+    box-shadow: 0 20px 60px rgba(27, 94, 32, 0.15);
+}
+
+/* 4. Columnas Internas */
+.card-left-col {
+    flex: 0 0 25%; /* Ancho fijo del 25% */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    z-index: 2;
+    /* Color por defecto (Alebrije) */
+    background-color: rgba(216, 92, 54, 0.05);
+    border-right: 1px solid rgba(62, 39, 35, 0.1);
+}
+
+/* Sobreescritura de color para la columna izq de EcoStasis */
+.ecostasis-card .card-left-col {
+    background-color: rgba(46, 125, 50, 0.05); /* Tinte verde */
+    border-right: 1px solid rgba(78, 52, 46, 0.1);
+}
+
+.alebrije-logo { 
+    width: 80%; 
+    max-width: 180px; 
+    margin-bottom: 2rem; 
+    filter: drop-shadow(0 8px 8px rgba(0,0,0,0.1)); 
+}
+
+.card-right-col { 
+    flex: 1; /* Ocupa el resto del espacio */
+    position: relative; 
+    overflow: hidden; 
+}
+
+/* 5. Slider y Contenidos */
+.slider-track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.slide {
+    min-width: 100%;
+    padding: 3rem 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* Títulos y textos generales */
+.slide-title { font-family: var(--font-heading); font-size: 2.5rem; color: #152843; margin-bottom: 1rem; }
+.slide-text { font-size: 1.1rem; color: #4e342e; max-width: 800px; margin-bottom: 2rem; line-height: 1.6; }
+
+/* Sobreescritura de textos para EcoStasis */
+.ecostasis-card .slide-text { color: #4E342E; }
+.ecostasis-card .slide-title { color: #152843; }
+
+.slide-screenshot {
+    width: 100%; max-width: 750px; height: auto; max-height: 350px;
+    object-fit: contain; border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    margin-bottom: 1.5rem; 
+    background-color: #1c1c1e; /* Fondo oscuro por defecto */
+}
+/* Fondo claro para screenshots de EcoStasis (opcional, si el render tiene fondo transparente) */
+.ecostasis-card .slide-screenshot {
+    background-color: transparent; 
+    box-shadow: none; /* Quitar sombra de caja si es un render 3D flotante */
+}
+
+/* Botones de Navegación */
+.slider-nav-btn {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    background-color: rgba(21, 40, 67, 0.8); color: white; border: none;
+    width: 50px; height: 50px; border-radius: 50%; cursor: pointer;
+    font-size: 1.5rem; display: flex; align-items: center; justify-content: center;
+    transition: all 0.3s ease; z-index: 10; opacity: 0;
+}
+
+.card-right-col:hover .slider-nav-btn { opacity: 1; }
+.slider-nav-btn:hover { background-color: #D85C36; transform: translateY(-50%) scale(1.1); }
+.prev-btn { left: 20px; }
+.next-btn { right: 20px; }
+
+/* Ajuste botón EcoStasis */
+.ecostasis-card .slider-nav-btn:hover { background-color: #2E7D32; }
+
+/* Botón Ver Más */
+.btn-ver-mas {
+    margin-top: auto; background-color: #D85C36; color: white;
+    padding: 0.8rem 2.5rem; border-radius: 30px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(216, 92, 54, 0.4);
+    transition: transform 0.2s, background 0.2s;
+}
+.btn-ver-mas:hover { background-color: #BF360C; transform: translateY(-2px); }
+
+/* Ajuste Móvil */
+@media (max-width: 1024px) {
+    .featured-card {
+        flex-direction: column;
+        width: 95%;
+        min-height: auto;
+    }
+    .card-left-col {
+        flex: 0 0 auto;
+        padding: 1.5rem;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+        border-right: none;
+    }
+    .slide { padding: 2rem 1rem; }
+    .slider-nav-btn { opacity: 0.8; width: 35px; height: 35px; }
+    .prev-btn { left: 5px; }
+    .next-btn { right: 5px; }
+}
+/*================================================================
+  ESTILOS ESPECÍFICOS: ECOSTASIS CARD
+  Paleta: Fondo Crema/Verdoso, Textos Café/Azul, Detalles Verdes
+================================================================*/
+
+.ecostasis-card {
+    background-color: #F1F8E9; /* Fondo Verde Muy Pálido (Casi blanco) */
+    box-shadow: 0 20px 60px rgba(27, 94, 32, 0.15); /* Sombra verdosa suave */
+}
+
+/* Columna izquierda específica de EcoStasis */
+.ecostasis-card .card-left-col {
+    background-color: rgba(46, 125, 50, 0.05); /* Tinte verde muy suave */
+    border-right: 1px solid rgba(78, 52, 46, 0.1); /* Línea divisoria café sutil */
+}
+
+/* Ajustes de texto específicos para esta tarjeta si es necesario */
+.ecostasis-card .slide-text {
+    color: #4E342E; /* Texto café oscuro para lectura cómoda */
+}
+
+.ecostasis-card .slide-title {
+    color: #152843; /* Títulos en Azul Marino */
+}
+
+/* Botón de navegación del slider en EcoStasis */
+.ecostasis-card .slider-nav-btn {
+    background-color: rgba(21, 40, 67, 0.8); /* Azul Marino semi-transparente */
+}
+
+.ecostasis-card .slider-nav-btn:hover {
+    background-color: #2E7D32; /* Verde al pasar el mouse */
+}
+/*================================================================
+  ESTILOS ESPECÍFICOS: FLEXSYNC CARD
+  Paleta: Dark Navy (#0A192F), Neon Lime (#C6FF00), Cool Grey
+================================================================*/
+
+.flexsync-card {
+    background-color: #112240; /* Azul muy oscuro (casi negro) */
+    box-shadow: 0 20px 60px rgba(198, 255, 0, 0.1); /* Resplandor Neón sutil */
+    border: 1px solid #233554;
+}
+
+/* Columna Izquierda */
+.flexsync-card .card-left-col {
+    background-color: #0A192F; /* Fondo más oscuro para contraste */
+    border-right: 1px solid #233554;
+}
+
+/* Textos */
+.flexsync-card .slide-title {
+    color: #E6F1FF; /* Blanco Hielo */
+}
+
+.flexsync-card .slide-text {
+    color: #8892B0; /* Gris azulado tecnológico */
+}
+
+/* Botones de Navegación */
+.flexsync-card .slider-nav-btn {
+    background-color: rgba(198, 255, 0, 0.2); /* Verde semitransparente */
+    color: #C6FF00;
+}
+
+.flexsync-card .slider-nav-btn:hover {
+    background-color: #C6FF00; /* Verde sólido */
+    color: #0A192F; /* Texto oscuro */
+}
+
+/* Hover del botón principal */
+.btn-flex:hover {
+    box-shadow: 0 0 15px #C6FF00;
+    transform: translateY(-2px);
+    background-color: #D4FF33 !important; /* Un poco más claro al hover */
+}
+/*================================================================
+  APORTACIONES & CONTACTO
+================================================================*/
+.contributions-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--spacing-md); }
+.contribution-card {
+    background-color: var(--color-bg-light); padding: var(--spacing-md);
+    border-left: 5px solid var(--color-accent); border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+.contribution-card .icon { font-size: 2rem; margin-bottom: var(--spacing-sm); }
+.contribution-card h3 { font-family: var(--font-heading); color: var(--color-primary); margin-bottom: var(--spacing-sm); }
+.link-cta { display: block; margin-top: var(--spacing-sm); color: var(--color-accent); font-weight: 600; }
+
+.contact-form { max-width: 600px; margin: 0 auto var(--spacing-lg); display: flex; flex-direction: column; gap: var(--spacing-sm); }
+.contact-form input, .contact-form textarea { padding: 1rem; border: 1px solid #CCCCCC; border-radius: 4px; }
+.social-links { text-align: center; display: flex; justify-content: center; gap: var(--spacing-lg); }
+
+.footer { background-color: var(--color-primary); color: var(--color-text-light); padding: var(--spacing-md) 0; text-align: center; }
+/* ================================================================
+   CORRECCIONES FALTANTES
+   (Etiquetas de tecnología y Animación Menú)
+================================================================ */
+
+/* 1. Estilos para las "Pastillas" de tecnología (Flutter, Arduino, etc.) */
+.tech-tag {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 50px; /* Bordes redondos */
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    
+    /* Estilo por defecto (Para Alebrije MAX - Naranja) */
+    background-color: rgba(216, 92, 54, 0.15); 
+    color: #D85C36;
+    margin: 0.2rem;
+}
+
+/* Ajuste automático para EcoStasis: 
+   Como en el HTML de EcoStasis pusimos style="background-color:...", 
+   solo necesitamos forzar que el texto sea blanco */
+.ecostasis-card .tech-tag {
+    color: #FFFFFF !important;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* 2. Animación del botón hamburguesa a "X" (Opcional pero recomendado) */
+.nav-toggle.active .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.nav-toggle.active .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.nav-toggle.active .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
